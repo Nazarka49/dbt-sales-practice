@@ -6,11 +6,11 @@ WITH ranking as (
         , address_line_1
         , address_line_2
         , postal_code
-        , city
-        , ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date DESC) as rn
+        , city_id
+        , order_date as last_order_date
     FROM {{ ref('stg_sales') }}
-    QUALIFY rn = 1 
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date DESC) = 1 
 )
 
-SELECT * EXCEPT (rn)
+SELECT * 
 FROM ranking
