@@ -1,0 +1,106 @@
+version: 2
+
+sources:
+  - name: sales
+    database: dbt-personal-sales-project  
+    schema: sales_project  
+    tags: ["sales", "raw"]
+    tables:
+      - name: raw_sales_data 
+        description: >
+          order line table. One row per order per product line
+        columns:
+          - name: ORDERNUMBER
+            description: Order id. Part of the composite pk
+            tests:
+              - not_null
+          - name: QUANTITYORDERED
+            description: number of items ordered
+            tests:
+              - not_null
+          - name: PRICEEACH
+            description: price of an individual product
+            tests:
+              - not_null
+          - name: ORDERLINENUMBER
+            description: product number in an order
+            tests:
+              - not_null
+          - name: SALES
+            description: total amount (QUANTITYORDERED * PRICEEACH)
+            tests:
+              - not_null
+          - name: ORDERDATE
+            description: date of the order
+            tests:
+              - not_null
+          - name: STATUS
+            description: order status
+            tests:
+              - not_null
+          - name: QTR_ID
+            description: quarter number
+            tests:
+              - not_null
+          - name: MONTH_ID
+            description: month number
+            tests:
+              - not_null
+          - name: YEAR_ID
+            description: year number
+            tests:
+              - not_null
+          - name: PRODUCTLINE
+            description: product name
+            tests:
+              - not_null
+          - name: MSRP
+            description: manufacturer's suggested retail price of a product
+            tests:
+              - not_null
+          - name: PRODUCTCODE
+            description: product id
+            tests:
+              - not_null
+          - name: CUSTOMERNAME
+            description: customer's full name
+            tests:
+              - not_null
+          - name: PHONE
+            description: customer's phone number
+            tests:
+              - not_null
+          - name: ADDRESSLINE1
+            description: customer's main address
+            tests:
+              - not_null
+          - name: ADDRESSLINE2
+            description: customer's 2nd address
+          - name: CITY
+            description: customer's city
+            tests:
+              - not_null
+          - name: STATE
+            description: customer's state
+          - name: POSTALCODE
+            description: customer's postal code
+          - name: COUNTRY
+            description: customer's country
+            tests:
+              - not_null
+          - name: TERRITORY
+            description: customer's territory
+          - name: CONTACTLASTNAME
+            description: sales rep last nam
+            tests:
+              - not_null
+          - name: CONTACTFIRSTNAME
+            description: sales rep first name
+            tests:
+              - not_null
+          - name: DEALSIZE
+            description: size of the deal ['Small','Medium','Large']
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['Small', 'Medium', 'Large']
